@@ -76,9 +76,9 @@ public class App
 
         int contador = 0;
 
-        for(int i = 0; i < vogais.length; i++){
-            for(int j = 0; j < texto.length(); j++){
-                if(vogais[i] == texto.charAt(j)){
+        for (char vogal : vogais) {
+            for (int j = 0; j < texto.length(); j++) {
+                if (vogal == texto.charAt(j)) {
                     contador++;
                 }
             }
@@ -97,10 +97,7 @@ public class App
             if(tamanhoVetor <= 0)  System.out.println("Valor Inválido, o vetor deve ter pelo menos 1 (um) de tamanho.");
         } while (tamanhoVetor <= 0);
 
-
-        int[] vetor = popularVetor(tamanhoVetor);
-
-        return vetor;
+        return popularVetor(tamanhoVetor);
     }
 
     public static void ordenarVetorCrescente(int[] vetor){
