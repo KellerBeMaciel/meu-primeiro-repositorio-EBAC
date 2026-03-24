@@ -4,46 +4,37 @@ import java.util.Scanner;
 
 public class App
 {
+    static Scanner scanner;
+
     public static void main( String[] args )
     {
-        Scanner scanner = new Scanner(System.in);
+        int[][] matriz = new int[3][3];
+        scanner = new Scanner(System.in);
+        System.out.println("Iremos preencher agora uma matriz 3x3, por favor, informe 9 números: ");
 
-        System.out.println("Greetings! \nTemos algumas perguntas para você. \nVamos Começar!");
+        popularMatriz(matriz, 3, 3);
+        imprimirMatriz(matriz);
+    }
 
-        System.out.println("Digite seu nome completo: ");
-        String nome = scanner.nextLine();
+    public static void imprimirMatriz(int[][] matriz){
+        for(int [] vetor : matriz){
+            System.out.printf("%d %d %d", vetor[0], vetor[1], vetor[2]);
+            System.out.println();
+        }
+    }
 
-        System.out.println("Digite seu CPF:");
-        String cpf = scanner.nextLine();
+    public static void popularMatriz(int[][] matriz, int linhas, int colunas){
+        for(int i = 0; i < linhas; i++){
+            for(int j = 0; j < colunas; j++){
+                System.out.printf("Informe o número para a posição [%d][%d]: ", i, j);
+                matriz[i][j] = getNextInt();
+            }
+        }
+    }
 
-        System.out.println("Digite sua Idade: ");
-        int idade = scanner.nextInt();
+    public static int getNextInt(){
+        int numero = scanner.nextInt();
         scanner.nextLine();
-
-        System.out.println("Digite seu peso: ");
-        double peso = scanner.nextDouble();
-        scanner.nextLine();
-
-        System.out.println("Digite sua altura: ");
-        double altura = scanner.nextDouble();
-        scanner.nextLine();
-
-        System.out.println("Digite seu Estado Civil: ");
-        String estadoCivil = scanner.nextLine();
-
-        System.out.println("\nObrigado pela sua participação, dados registrados: ");
-
-        String dados =  "============================================================================\n" +
-                        String.format("Nome Completo: %s \n", nome) +
-                        String.format("CPF:: %s          \n", cpf) +
-                        String.format("Idade: %d         \n", idade) +
-                        String.format("Peso: %f          \n", peso) +
-                        String.format("Altura: %f        \n", altura) +
-                        String.format("Estado Civil: %s  \n", estadoCivil) +
-                        "============================================================================\n";
-
-        System.out.println(dados);
-        scanner.close();
-
+        return numero;
     }
 }
