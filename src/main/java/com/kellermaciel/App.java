@@ -4,46 +4,77 @@ import java.util.Scanner;
 
 public class App
 {
-    public static void main( String[] args )
-    {
-        Scanner scanner = new Scanner(System.in);
+    static Scanner scanner;
 
-        System.out.println("Greetings! \nTemos algumas perguntas para você. \nVamos Começar!");
+    public static void main( String[] args ) {
+        scanner = new Scanner(System.in);
+        Aluno[] alunos = cadastrarAlunos();
 
-        System.out.println("Digite seu nome completo: ");
+        System.out.println("\n===== Informações de Alunos Cadastradas =====");
+        for(Aluno aluno : alunos){
+            System.out.println(aluno);
+        }
+
+        scanner.close();
+    }
+
+    public static Aluno[] cadastrarAlunos(){
+        int quantidade;
+        do {
+            System.out.println("Quantos alunos deseja cadastrar?");
+            quantidade = getNextInt();
+
+            if(quantidade > 0) break;
+
+            System.out.println("Quantidade inválida. Por favor, digite um número maior que zero.");
+
+        } while (true);
+
+        Aluno[] alunos = new Aluno[quantidade];
+        for(int i = 0; i < quantidade; i++){
+            alunos[i] = cadastrarAluno();
+        }
+
+        return alunos;
+    }
+
+    public static Aluno cadastrarAluno(){
+        System.out.println("===== NOVO ALUNO =====");
+
+        System.out.println("Digite o nome do aluno:");
         String nome = scanner.nextLine();
 
-        System.out.println("Digite seu CPF:");
-        String cpf = scanner.nextLine();
-
-        System.out.println("Digite sua Idade: ");
+        System.out.println("Digite a idade do aluno:");
         int idade = scanner.nextInt();
+
+        Aluno aluno = new Aluno(nome, idade);
+
+        for (int i = 0; i < Aluno.TOTAL_PROVAS_ANO; i++) {
+            aluno.setNota(cadastrarNota(i + 1), i);
+        }
+
+        return aluno;
+    }
+
+    public static double cadastrarNota(int prova){
+        double nota;
+
+        do{
+            System.out.println("Digite a nota da prova " + prova + ":");
+            nota = scanner.nextDouble();
+            scanner.nextLine();
+
+            if(nota >= 0.0 && nota <= 10.0) break;
+
+            System.out.println("Nota inválida. Por favor, digite um valor entre 0.0 e 10.0.");
+        } while(true);
+
+        return nota;
+    }
+
+    public static int getNextInt(){
+        int num = scanner.nextInt();
         scanner.nextLine();
-
-        System.out.println("Digite seu peso: ");
-        double peso = scanner.nextDouble();
-        scanner.nextLine();
-
-        System.out.println("Digite sua altura: ");
-        double altura = scanner.nextDouble();
-        scanner.nextLine();
-
-        System.out.println("Digite seu Estado Civil: ");
-        String estadoCivil = scanner.nextLine();
-
-        System.out.println("\nObrigado pela sua participação, dados registrados: ");
-
-        String dados =  "============================================================================\n" +
-                        String.format("Nome Completo: %s \n", nome) +
-                        String.format("CPF:: %s          \n", cpf) +
-                        String.format("Idade: %d         \n", idade) +
-                        String.format("Peso: %f          \n", peso) +
-                        String.format("Altura: %f        \n", altura) +
-                        String.format("Estado Civil: %s  \n", estadoCivil) +
-                        "============================================================================\n";
-
-        System.out.println(dados);
-        scanner.close();
-
+        return num;
     }
 }
