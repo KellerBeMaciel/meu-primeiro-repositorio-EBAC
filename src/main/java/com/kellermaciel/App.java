@@ -4,46 +4,64 @@ import java.util.Scanner;
 
 public class App
 {
-    public static void main( String[] args )
-    {
-        Scanner scanner = new Scanner(System.in);
+    static Scanner scanner;
 
-        System.out.println("Greetings! \nTemos algumas perguntas para você. \nVamos Começar!");
+    public static void main( String[] args ) {
+        scanner = new Scanner(System.in);
+        int quantidade;
 
-        System.out.println("Digite seu nome completo: ");
-        String nome = scanner.nextLine();
+        do {
+            System.out.println("Quantos carros deseja criar?");
+            quantidade = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.println("Digite seu CPF:");
-        String cpf = scanner.nextLine();
+            if(quantidade > 0 && quantidade <= 50){
+                break;
+            }
 
-        System.out.println("Digite sua Idade: ");
-        int idade = scanner.nextInt();
-        scanner.nextLine();
+            System.out.println("Quantidade válida: " + quantidade + ". Informe uma quantidade entre 1 e 50.");
 
-        System.out.println("Digite seu peso: ");
-        double peso = scanner.nextDouble();
-        scanner.nextLine();
+        } while (true);
 
-        System.out.println("Digite sua altura: ");
-        double altura = scanner.nextDouble();
-        scanner.nextLine();
 
-        System.out.println("Digite seu Estado Civil: ");
-        String estadoCivil = scanner.nextLine();
 
-        System.out.println("\nObrigado pela sua participação, dados registrados: ");
+        Carro[] carros = criarCarros(quantidade);
 
-        String dados =  "============================================================================\n" +
-                        String.format("Nome Completo: %s \n", nome) +
-                        String.format("CPF:: %s          \n", cpf) +
-                        String.format("Idade: %d         \n", idade) +
-                        String.format("Peso: %f          \n", peso) +
-                        String.format("Altura: %f        \n", altura) +
-                        String.format("Estado Civil: %s  \n", estadoCivil) +
-                        "============================================================================\n";
+        System.out.println("\n=== Informações dos Carros===\n");
 
-        System.out.println(dados);
+        System.out.println("Carros criados:");
+        for(Carro carro : carros){
+            System.out.println(carro.getNome());
+        }
+
+        System.out.println("Quantidade total de carros: " + quantidade);
+        System.out.println("Valor total dos carros: " + Carro.valoresTotal);
+
+
         scanner.close();
-
     }
+
+    public static Carro[] criarCarros(int quantidade) {
+        Carro[] carros = new Carro[quantidade];
+        scanner = new Scanner(System.in);
+
+        for (int i = 0; i < quantidade; i++) {
+            System.out.println("\n=== Informações do Carro ===");
+
+            System.out.println("Digite o nome do carro:");
+            String nome = scanner.nextLine();
+            System.out.println("Digite o modelo do carro (esportivo | classico | luxo):");
+            String modelo = scanner.nextLine();
+            System.out.println("Digite a marca do carro:");
+            String marca = scanner.nextLine();
+            System.out.println("Digite o valor do carro:");
+            double valor = scanner.nextDouble();
+            scanner.nextLine(); // Consumir a nova linha
+
+            carros[i] = new Carro(nome, modelo, marca, valor);
+        }
+
+        return carros;
+    }
+
 }
